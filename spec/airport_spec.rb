@@ -1,11 +1,11 @@
 require 'airport'
+require 'plane'
 
 describe Airport do 
-    describe 'initialize' do 
         subject { Airport.new }
         let (:plane) { Plane.new }
         it 'changes capacity' do 
-            plane::DEFAULT_CAPACITY.times do
+            described_class::DEFAULT_CAPACITY.times do
                 subject.land_plane(plane)
             end
             expect { subject.land_plane(Plane.new) }.to raise_error "No Space In The Airport"
@@ -25,12 +25,12 @@ describe Airport do
     end
 
     it "No take off shit weather" do 
-        subject.condition(stormy)
+        subject.condition("Stormy")
         expect { subject.take_off }.to raise_error("No Departing")
     end
 
     it "No landing, shit weather" do 
-        subject.condition(stormy)
+        subject.condition("Stormy")
         expect { subject.land(Plane.new) }.to raise_error("Landing Denied")
     end
 end
